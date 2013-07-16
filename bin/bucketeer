@@ -24,6 +24,10 @@ class App
   # on("--flag VAL","Some flag")
   # options[flag] will contain VAL
   #
+  regions = %w(eu-west-1 us-east)
+  options[:region] = "eu-west-1"
+  on("-r region", "--region", regions, "Which AWS Region to use", "(" + regions.join('|') +")")
+
   # Specify switches via:
   # on("--[no-]switch","Some switch")
   #
@@ -35,7 +39,12 @@ class App
   # # Make an argument optional
   # arg :optional_arg, :optional
 
+  arg :name
+
+
   version Bucketeer::VERSION
+
+  description "Create AWS Buckets & Access Key pairs"
 
   use_log_level_option
 
