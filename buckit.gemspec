@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'bucketeer/version'
+require 'buckit/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "bucketeer"
-  spec.version       = Bucketeer::VERSION
+  spec.name          = "buckit"
+  spec.version       = Buckit::VERSION
   spec.authors       = ["Johan Bruning"]
   spec.email         = ["johan@wirelab.nl"]
   spec.description   = %q{A command line tool for creating S3 Buckets and matching access keys}

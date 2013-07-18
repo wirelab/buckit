@@ -1,0 +1,88 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'methadone'
+require 'buckit'
+
+class App
+  include Methadone::Main
+  include Methadone::CLILogging
+
+  main do |name|
+    logger = Methadone::CLILogger.new
+    AWS.config(region: options[:region])
+    begin
+      bucket = AWS.s3.buckets.create(name, acl: :public_read)
+    rescue AWS::S3::Errors::BucketAlreadyExists => message
+      exit_now! message
+    end
+    begin
+      user = AWS.iam.users.create(name)
+      access_key = user.access_keys.create
+      credentials = access_key.credentials
+    rescue AWS::Errors::ClientError => message
+      exit_now! message
+    end
+    begin
+      policy = AWS::IAM::Policy.new
+      policy.allow(
+        actions: ["s3:AbortMultipartUpload",
+        "s3:DeleteObject",
+        "s3:DeleteObjectVersion",
+        "s3:GetBucketAcl",
+        "s3:GetBucketLocation",
+        "s3:GetBucketLogging",
+        "s3:GetBucketNotification",
+        "s3:GetBucketVersioning",
+        "s3:GetBucketWebsite",
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:GetObjectTorrent",
+        "s3:GetObjectVersion",
+        "s3:GetObjectVersionAcl",
+        "s3:GetObjectVersionTorrent",
+        "s3:ListBucket",
+        "s3:ListBucketVersions",
+        "s3:PutBucketAcl",
+        "s3:PutBucketLogging",
+        "s3:PutBucketNotification",
+        "s3:PutBucketVersioning",
+        "s3:PutBucketWebsite",
+        "s3:PutLifecycleConfiguration",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:PutObjectVersionAcl"],
+        resources: ["arn:aws:s3:::#{bucket.name}", "arn:aws:s3:::#{bucket.name}/*"]
+      )
+      policy_options = {}
+      policy_options[:user_name] = user.name
+      policy_options[:policy_name] = "buckit"
+      policy_options[:policy_document] = policy.to_json
+      AWS.iam.client.put_user_policy policy_options
+    rescue AWS::Errors::ClientError => message
+      exit_now! message
+    end
+    if options[:pretty]
+      logger.info "Created bucket with name #{bucket.name} in region #{bucket.config.region}"
+      logger.info "Created user #{user.name} with access_key_id: #{credentials[:access_key_id]}, secret_access_key: #{credentials[:secret_access_key]}"
+    else
+      logger.info "#{bucket.name},#{credentials[:access_key_id]},#{credentials[:secret_access_key]}"
+    end
+  end
+
+  regions = %w(eu-west-1 us-east)
+  options[:region] = "eu-west-1"
+  on("-r region", "--region", regions, "Which AWS Region to use", "(" + regions.join('|') +")")
+  on("-p", "--pretty", "Pretty output")
+
+
+  arg :name, "Name of the bucket you want to create"
+
+  version Buckit::VERSION
+
+  description "Create AWS Buckets & Access Key pairs"
+
+  use_log_level_option
+
+  go!
+end

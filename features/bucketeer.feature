@@ -10,4 +10,12 @@ Feature: My bootstrapped app kinda works
     And the banner should document that this app takes options
     And the following options should be documented:
       |--version|
-    And the banner should document that this app takes no arguments
+      |--region|
+    And the banner should document that this app's arguments are:
+      | name | which is required |
+
+  Scenario: Create bucket
+    Given a bucket with the name "testbucket" does not exist
+    When I run `bucketeer testbucket`
+    Then the exit status should be 0
+    And the response should show a bucketname and access keys
