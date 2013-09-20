@@ -65,6 +65,8 @@ class App
     if options[:pretty]
       logger.info "Created bucket with name #{bucket.name} in region #{bucket.config.region}"
       logger.info "Created user #{user.name} with access_key_id: #{credentials[:access_key_id]}, secret_access_key: #{credentials[:secret_access_key]}"
+    elsif options[:env]
+      logger.info "#{bucket.name}: AWS_ACCESS_KEY_ID=#{credentials[:access_key_id]} AWS_SECRET_ACCESS_KEY=#{credentials[:secret_access_key]}"
     else
       logger.info "#{bucket.name},#{credentials[:access_key_id]},#{credentials[:secret_access_key]}"
     end
@@ -74,6 +76,7 @@ class App
   options[:region] = "eu-west-1"
   on("-r region", "--region", regions, "Which AWS Region to use", "(" + regions.join('|') +")")
   on("-p", "--pretty", "Pretty output")
+  on("-e", "--env", "Easy copy-paste for env vars")
 
 
   arg :name, "Name of the bucket you want to create"
