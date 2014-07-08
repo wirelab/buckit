@@ -32,9 +32,9 @@ module Buckit
 
     def ask_for_credentials
       logger.info 'Enter your AWS key'
-      key = gets.chomp
+      key = STDIN.gets.chomp
       logger.info 'Enter your AWS secret'
-      secret = gets.chomp
+      secret = STDIN.gets.chomp
 
       [key, secret]
     end
