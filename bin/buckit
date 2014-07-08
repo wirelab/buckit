@@ -3,14 +3,21 @@
 require 'optparse'
 require 'methadone'
 require 'buckit'
+require File.expand_path(File.join('..', 'lib', 'buckit', 'auth'), File.dirname(__FILE__))
 
 class App
   include Methadone::Main
   include Methadone::CLILogging
+  extend Buckit::Auth
 
   main do |name|
     logger = Methadone::CLILogger.new
-    AWS.config(region: options[:region])
+
+    AWS.config(
+      region: options[:region],
+      access_key_id: auth_access_key,
+      secret_access_key: auth_access_secret,
+    )
     begin
       bucket = AWS.s3.buckets.create(name, acl: :public_read)
     rescue AWS::S3::Errors::BucketAlreadyExists => message

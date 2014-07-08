@@ -25,5 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rdoc'
   spec.add_development_dependency 'aruba'
   spec.add_dependency 'methadone', '~> 1.3.0'
+  spec.add_dependency 'netrc'
   spec.add_development_dependency 'rspec'
 end
