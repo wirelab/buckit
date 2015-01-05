@@ -1,6 +1,10 @@
 # Buckit
 
-TODO: Write a gem description
+Buckit provides a list of commands that will allow you to manage your content
+stored in S3 buckets. To learn about each feature, please use the `help`
+command:
+
+Heavily inspired from https://github.com/clarete/s3sync
 
 ## Installation
 
@@ -18,7 +22,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    buckit create NAME
+
+    buckit delete NAME
+
+    buckit list
+
+For more options check buckit --help
 
 ## Contributing
 
