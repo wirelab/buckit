@@ -6,11 +6,11 @@ require 'buckit/version'
 Gem::Specification.new do |spec|
   spec.name          = 'buckit'
   spec.version       = Buckit::VERSION
-  spec.authors       = ['Johan Bruning']
+  spec.authors       = ['Johan Bruning', 'Bart van Zon', 'Andre Kramer']
   spec.email         = ['johan@wirelab.nl']
   spec.description   = %q{A command line tool for creating S3 Buckets and matching access keys}
   spec.summary       = %q{A command line tool for creating a matching pair of S3 Bucket + Access keys.}
-  spec.homepage      = ''
+  spec.homepage      = 'http://www.wirelab.nl'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)
