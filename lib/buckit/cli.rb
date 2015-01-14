@@ -5,7 +5,6 @@ require 'cmdparse'
 require "active_support/core_ext"
 
 require "buckit/cli/base_cmd"
-require "buckit/cli/backup"
 require "buckit/cli/delete"
 require "buckit/cli/list"
 require "buckit/cli/create"
