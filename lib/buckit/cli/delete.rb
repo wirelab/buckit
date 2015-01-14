@@ -38,7 +38,7 @@ module Buckit
         raise WrongUsage.new(nil, "You need to specify a bucket") if not bucket
 
         # Getting the bucket
-        bucket_obj = Aws::S3::Resource.new(region: region).bucket(bucket)
+        bucket_obj = Aws::S3::Resource.new(region: @region).bucket(bucket)
 
         begin
           # Do not kill buckets with content unless explicitly asked
@@ -50,7 +50,7 @@ module Buckit
             puts "bucket: #{bucket} has been deleted"
           end
           if @remove_user
-            iam = Aws::IAM::Resource.new region: region
+            iam = Aws::IAM::Resource.new region: @region
             user = iam.user(bucket)
             user.policy("buckit").delete
             puts "Policy deleted"
