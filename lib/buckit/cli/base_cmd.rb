@@ -16,10 +16,6 @@ module Buckit
         @has_prefix
       end
 
-      def region
-        @region || 'eu-west-1'
-      end
-
       def usage
         u = []
         u << "Usage: #{File.basename commandparser.program_name} #{name} "
@@ -37,7 +33,7 @@ module Buckit
 
       def execute(args)
         # Set default region, required
-        Aws.config[:region] = region
+        Aws.config[:region] = @region ||= 'eu-west-1'
 
         # Connecting to amazon
         s3 = Aws::S3::Client.new
