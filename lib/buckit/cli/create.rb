@@ -14,7 +14,6 @@ module Buckit
         super 'create', false, false
 
         @short_desc = "Create a new bucket"
-        @region = 'eu-west-1'
 
         self.options = CmdParse::OptionParserWrapper.new do |opt|
           opt.on("-r", "--region REGION", "specify a region, default eu-west-1") {|region|
