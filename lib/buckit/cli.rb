@@ -1,8 +1,5 @@
 require 'buckit/version'
-require 'buckit/exceptions'
-require 'aws-sdk'
 require 'cmdparse'
-require "active_support/core_ext"
 
 require "buckit/cli/base_cmd"
 require "buckit/cli/delete"
