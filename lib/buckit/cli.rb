@@ -17,10 +17,9 @@ module Buckit
         opt.separator "Global options:"
       end
 
-      cmd.main_command.short_desc = 'Tool belt for managing your S3 buckets'
+      cmd.main_command.short_desc = 'Toolbelt for managing your S3 buckets'
       cmd.main_command.description =<<END.strip
-Buckit provides a list of commands that will allow you to manage your content
-stored in S3 buckets. To learn about each feature, please use the `help`
+Buckit provides a list of commands that will allow you to manage your S3 buckets. To learn about each feature, please use the `help`
 command:
   $ #{File.basename $0} help create"
 END
