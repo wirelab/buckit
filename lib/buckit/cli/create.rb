@@ -24,7 +24,7 @@ module Buckit
         # Create bucket
         create_bucket(s3, bucket)
         credentials = create_user(bucket)
-        create_policy(bucket)
+        add_policy_to_user(bucket)
         add_cors(s3, bucket)
 
         puts "FOG_DIRECTORY=#{bucket} FOG_PROVIDER=AWS FOG_REGION=#{@region} ASSET_HOST=#{Aws::S3::Resource.new.bucket(bucket).url} AWS_ACCESS_KEY_ID=#{credentials.access_key_id} AWS_SECRET_ACCESS_KEY=#{credentials.secret_access_key}"
@@ -49,7 +49,7 @@ module Buckit
         end
       end
 
-      def create_policy bucket
+      def add_policy_to_user bucket
         begin
           iam = Aws::IAM::Client.new
           policy = {
