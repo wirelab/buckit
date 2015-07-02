@@ -43,7 +43,7 @@ module Buckit
           iam = Aws::IAM::Client.new
           iam.create_user(user_name: bucket, path: '/apps/')
           credentials = iam.create_access_key(user_name: bucket)
-          credentials.first.access_key
+          credentials.access_key
         rescue Aws::IAM::Errors::ServiceError
           raise FailureFeedback.new("Failed creating IAM")
         end
