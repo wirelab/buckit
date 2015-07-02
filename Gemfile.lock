@@ -2,28 +2,23 @@ PATH
   remote: .
   specs:
     buckit (1.0.0)
-      aws-sdk (~> 2.0.18.pre)
+      aws-sdk (~> 2.1.2)
       cmdparse (~> 2)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    aws-sdk (2.0.18.pre)
-      aws-sdk-resources (= 2.0.18.pre)
-    aws-sdk-core (2.0.18)
-      builder (~> 3.0)
+    aws-sdk (2.1.2)
+      aws-sdk-resources (= 2.1.2)
+    aws-sdk-core (2.1.2)
       jmespath (~> 1.0)
-      multi_json (~> 1.0)
-      multi_xml (~> 0.5)
-    aws-sdk-resources (2.0.18.pre)
-      aws-sdk-core (= 2.0.18)
-    builder (3.2.2)
+    aws-sdk-resources (2.1.2)
+      aws-sdk-core (= 2.1.2)
     cmdparse (2.0.6)
     diff-lcs (1.2.5)
     jmespath (1.0.2)
       multi_json (~> 1.0)
-    multi_json (1.10.1)
-    multi_xml (0.5.5)
+    multi_json (1.11.1)
     rake (10.4.2)
     rspec (3.1.0)
       rspec-core (~> 3.1.0)
