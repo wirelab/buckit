@@ -5,6 +5,7 @@ module Buckit
 
     class Create < BaseCmd
       attr_accessor :region
+      attr_accessor :acl
 
       def initialize
         super 'create', false, false
@@ -14,6 +15,9 @@ module Buckit
         self.options = CmdParse::OptionParserWrapper.new do |opt|
           opt.on("-r", "--region REGION", "specify a region, default eu-west-1") {|region|
             @region = region
+          }
+          opt.on("-a", "--acl ACL_POLICY", "specify a canned acl, default public-read. Allowed acl's are: private, public-read, public-read-write, authenticated-read. See http://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html") { |acl|
+            @acl = acl
           }
         end
       end
@@ -33,7 +37,7 @@ module Buckit
       protected
       def create_bucket s3, bucket
         s3.create_bucket(
-          acl: "public-read",
+          acl: @acl,
           bucket: bucket
         )
       end
